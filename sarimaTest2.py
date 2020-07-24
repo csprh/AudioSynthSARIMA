@@ -9,13 +9,8 @@ import matplotlib.pyplot as plt
 data3 = pm.datasets.load_wineind()
 train, test = data3[:150], data[150:]
 lenSeq = 1000
-subSamp = 40
-f0SamplesSS = 10
-f0Samples = 400
-
 data.shape
 data = data[:lenSeq]
-dataSS = data[::subSamp]
 #from pyramid.arima import auto_arima
 f0Samples = 10 # fs = 44100, f0 = 110 (A2), therefore f0 in samples is approx 400
 #thissa = pm.auto_arima(train, error_action='ignore', seasonal=True, m=12)
