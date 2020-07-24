@@ -19,8 +19,8 @@ dataSS = data[::subSamp]
 #from pyramid.arima import auto_arima
 f0Samples = 10 # fs = 44100, f0 = 110 (A2), therefore f0 in samples is approx 400
 #thissa = pm.auto_arima(train, error_action='ignore', seasonal=True, m=12)
-thissarima =  pm.auto_arima(data, start_p=1, start_q=1,test='adf',  max_p= 3, max_q= 3, max_d = 3,    m=f0Samples,start_P=0,max_D=2,max_Q=2, max_P=2, trace=True,error_action='ignore', suppress_warnings=True)
-params = thissarima.get_params([0])
+thissarimaSS =  pm.auto_arima(dataSS, start_p=1, start_q=1,test='adf',  max_p= 3, max_q= 3, max_d = 3,    m=f0SamplesSS,start_P=0,max_D=2,max_Q=2, max_P=2, trace=True,error_action='ignore', suppress_warnings=True)
+paramsSS = thissarimaSS.get_params([0])
 sos = params.get('seasonal_order')
 sosL = list(sos)
 sosL[3] = f0Samples
@@ -31,7 +31,7 @@ thisfig = plt.figure(figsize=(12,8))
 plt.plot(np.arange(1,lenSeq+1), data, label='Real Sequence', color='blue')
 plt.plot(np.arange(lenSeq,lenSeq+len(yhat)), yhat, label='Forecast-',	color='green')
 plt.show()
-thisfig.savefig("Pred2.pdf", bbox_inches='tight')
+thisfig.savefig("Pred3.pdf", bbox_inches='tight')
 plt.close(); print('\n')
 
 
