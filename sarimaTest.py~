@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 data3 = pm.datasets.load_wineind()
 train, test = data3[:150], data[150:]
-lenSeq = 1000
+lenSeq = 10000
 subSamp = 40
 f0SamplesSS = 10
 f0Samples = 400
