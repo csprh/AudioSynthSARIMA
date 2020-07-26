@@ -26,6 +26,7 @@ sosL = list(sos)
 sosL[3] = f0Samples
 sosT = tuple(sosL)
 thissarimaSS.set_params(seasonal_order=(sosT))
+yhat = fit_predict(data, exogenous=None, n_periods=200)
 yhat = thissarimaSS.predict(n_periods=200)
 thisfig = plt.figure(figsize=(12,8))
 plt.plot(np.arange(1,lenSeq+1), data, label='Real Sequence', color='blue')
