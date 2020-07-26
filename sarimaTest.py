@@ -17,7 +17,7 @@ data.shape
 data = data[:lenSeq]
 dataSS = data[::subSamp]
 #from pyramid.arima import auto_arima
-f0Samples = 10 # fs = 44100, f0 = 110 (A2), therefore f0 in samples is approx 400
+#f0Samples = 10 # fs = 44100, f0 = 110 (A2), therefore f0 in samples is approx 400
 #thissa = pm.auto_arima(train, error_action='ignore', seasonal=True, m=12)
 thissarimaSS =  pm.auto_arima(dataSS, start_p=1, start_q=1,test='adf',  max_p= 3, max_q= 3, max_d = 3,    m=f0SamplesSS,start_P=0,max_D=2,max_Q=2, max_P=2, trace=True,error_action='ignore', suppress_warnings=True)
 paramsSS = thissarimaSS.get_params([0])
