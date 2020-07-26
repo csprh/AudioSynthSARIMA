@@ -19,14 +19,16 @@ dataSS = data[::subSamp]
 #from pyramid.arima import auto_arima
 #f0Samples = 10 # fs = 44100, f0 = 110 (A2), therefore f0 in samples is approx 400
 #thissa = pm.auto_arima(train, error_action='ignore', seasonal=True, m=12)
-thissarimaSS =  pm.auto_arima(dataSS, start_p=1, start_q=1,test='adf',  max_p= 3, max_q= 3, max_d = 3,    m=f0SamplesSS,start_P=0,max_D=2,max_Q=2, max_P=2, trace=True,error_action='ignore', suppress_warnings=True)
+thissarimaSS =  pm.auto_arima(dataSS, d = 0, D = 0, start_p=0, start_q=0,test='adf',  max_p= 3, max_q= 3,     m=f0SamplesSS,start_P=0, start_Q= 0, max_Q=3, max_P=3, trace=True,error_action='ignore', suppress_warnings=True)
+
+thissarima =  pm.auto_arima(data, d = 0, start_p=0, start_q=0,test='adf',  max_p= 10, max_q= 10,  seasonal=False, trace=True,error_action='ignore', suppress_warnings=True)
 paramsSS = thissarimaSS.get_params([0])
 sos = paramsSS.get('seasonal_order')
 sosL = list(sos)
 sosL[3] = f0Samples
 sosT = tuple(sosL)
 thissarimaSS.set_params(seasonal_order=(sosT))
-yhat = thissarimaSS.fit_predict(data, n_periods=2000)
+yhat = thissarimaSS.fit_predict(data[:-1000], n_periods=2000)
 #yhat2 = thissarimaSS.predict(n_periods=200)
 thisfig = plt.figure(figsize=(12,8))
 plt.plot(np.arange(1,lenSeq+1), data, label='Real Sequence', color='blue')

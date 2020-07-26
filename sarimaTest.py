@@ -21,7 +21,8 @@ dataSS = data[::subSamp]
 #thissa = pm.auto_arima(train, error_action='ignore', seasonal=True, m=12)
 thissarimaSS =  pm.auto_arima(dataSS, d = 0, D = 0, start_p=0, start_q=0,test='adf',  max_p= 3, max_q= 3,     m=f0SamplesSS,start_P=0, start_Q= 0, max_Q=3, max_P=3, trace=True,error_action='ignore', suppress_warnings=True)
 
-thissarima =  pm.auto_arima(data, d = 0, start_p=0, start_q=0,test='adf',  max_p= 10, max_q= 10,  seasonal=False, trace=True,error_action='ignore', suppress_warnings=True)
+thissarimaS1 =  pm.auto_arima(data, with_intercept = False, d = 0, D = 0, start_p=0, start_q=0,test='adf',  max_p= 3, max_q= 3,     m=f0Samples,start_P=0, start_Q= 0, max_Q=3, max_P=3, trace=True,error_action='ignore', suppress_warnings=True)
+thissarima =  pm.auto_arima(data, with_intercept = False, d = 0, start_p=0, start_q=0,test='adf',  max_p= 10, max_q= 10,  seasonal=False, trace=True,error_action='ignore', suppress_warnings=True)
 paramsSS = thissarimaSS.get_params([0])
 sos = paramsSS.get('seasonal_order')
 sosL = list(sos)
