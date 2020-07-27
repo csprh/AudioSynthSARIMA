@@ -24,7 +24,7 @@ dataSS = data[::subSamp]
 
 pipe = pipeline.Pipeline([
     ("fourier", ppc.FourierFeaturizer(m=f0Samples)),
-    ("arima", arima.AutoARIMA(stepwise=True,  with_intercept = False, trace=1, error_action="ignore",
+    ("arima", arima.AutoARIMA(stepwise=True,  with_intercept = False, p = 5, q = 5, d= 0, trace=1, error_action="ignore",
                               seasonal=False,  # because we use Fourier
                               suppress_warnings=True))
 ])
