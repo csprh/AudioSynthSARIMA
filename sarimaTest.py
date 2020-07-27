@@ -5,6 +5,7 @@ from pmdarima import pipeline
 from pmdarima import model_selection
 from pmdarima import preprocessing as ppc
 from pmdarima import arima
+from pmdarima.arima import StepwiseContext
 import numpy as np
 import matplotlib
 #matplotlib.use('TkAgg')
