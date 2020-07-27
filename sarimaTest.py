@@ -21,16 +21,17 @@ data.shape
 data = data[:lenSeq]
 dataSS = data[::subSamp]
 
-
-pipe = pipeline.Pipeline([
-    ("fourier", ppc.FourierFeaturizer(m=f0Samples)),
-    ("arima", arima.AutoARIMA(stepwise=True, maxiter=1, with_intercept = False, start_p=5, start_q=4,  max_p= 6, max_q= 6,  trace=1, error_action="ignore",
+with StepwiseContext(max_steps=2):
+  pipe = pipeline.Pipeline([
+      ("fourier", ppc.FourierFeaturizer(m=f0Samples)),
+      ("arima", arima.AutoARIMA(stepwise=True, maxiter=20, with_intercept = False, start_p=5, start_q=4,  max_p= 6, max_q= 6,  trace=1, error_action="ignore",
                               seasonal=False,  # because we use Fourier
                               suppress_warnings=True))
-])
+  ])
 
-pipe.fit(data)
-yhat = pipe.predict(n_periods=1000)
+  pipe.fit(data)
+  yhat = pipe.predict(n_periods=1000)
+
 #from pyramid.arima import auto_arima
 #f0Samples = 10 # fs = 44100, f0 = 110 (A2), therefore f0 in samples is approx 400
 #thissa = pm.auto_arima(train, error_action='ignore', seasonal=True, m=12)
