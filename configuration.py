@@ -5,9 +5,8 @@ FRAME_HOP = 256
 FRAME_SIZE = 512
 
 #
-max_steps = none
+max_steps = 10
 lenSeq = 10000
-subSamp = 40
-f0SamplesSS = 10
+n_preiods=1000
 f0Samples = 400
-maxiter = 30
+maxiter = 2
