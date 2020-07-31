@@ -10,12 +10,37 @@ from pmdarima import arima
 from pmdarima.arima import StepwiseContext
 import numpy as np
 import matplotlib
+#matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
+import librosa
+import librosa.display
 
-fs, data = wavfile.read('string_1.wav')
-
+sr, data = wavfile.read('string_1.wav')
+data = librosa.util.buf_to_float(data)
 data = data[:config.lenSeq]
 
+
+
+rmse = librosa.feature.rms(data, frame_length=config.frame_length, hop_length=config.hop_length, center=True)
+rmse = np.transpose(rmse)
+frames = np.arange(len(rmse))
+samples = np.arange(len(data))
+t1 = librosa.frames_to_time(frames, hop_length=config.hop_length, sr=sr)
+t2 = librosa.samples_to_time(samples, sr=sr)
+
+plt.plot(t1, rmse, 'b', t2, data, 'g')
+
+plt.xlabel('Time (sec)')
+plt.legend(('RMSE', 'delta RMSE', 'energy novelty'))
+
+
+energySarima =  pm.auto_arima(rmse,  stepwise=False, miniter = 50, maxiter=config.maxiter, start_p=1, start_q=1,d =0, D = 0, m=6,  max_p= 20, max_q= 20, trace=True,error_action='ignore', suppress_warnings=True)
+energyYHat = energySarima.predict(n_periods=int(np.rint(config.n_preiods/config.hop_length)))
+predFrames = np.arange(len(rmse),len(rmse)+len(energyYHat))
+t3 = librosa.frames_to_time(predFrames, hop_length=config.hop_length, sr=sr)
+plt.plot(t3, energyYHat, label='Forecast-',	color='green')
+plt.xlim(0, t3.max())
+plt.show()
 with StepwiseContext(max_steps=config.max_steps):
   pipe = pipeline.Pipeline([
       ("fourier", ppc.FourierFeaturizer(m=config.f0Samples)),

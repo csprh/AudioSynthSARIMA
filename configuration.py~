@@ -1,12 +1,12 @@
 # Config values for audio synthesis
 # define ener
 
-FRAME_HOP = 256
-FRAME_SIZE = 512
+hop_length = 512
+frame_length = 1024
 
 #
-max_steps = 10
+max_steps = 50
 lenSeq = 10000
-n_preiods=1000
+n_preiods=10000
 f0Samples = 400
-maxiter = 30
+maxiter = 50

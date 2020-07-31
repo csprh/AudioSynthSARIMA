@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/csprh/tensorflow/lib/python3.7/site-packages/pudb/__init__.py", line 153, in runscript
+    dbg._runscript(mainpyfile)
+  File "/Users/csprh/tensorflow/lib/python3.7/site-packages/pudb/debugger.py", line 468, in _runscript
+    self.run(statement)
+  File "/usr/local/opt/python/Frameworks/Python.framework/Versions/3.7/lib/python3.7/bdb.py", line 585, in run
+    exec(cmd, globals, locals)
+  File "<string>", line 1, in <module>
+  File "sarimaTestEnv.py", line 38, in <module>
+    energyYHat = energySarima.predict(n_periods=np.rint(n_preiods/hop_length))
+NameError: name 'n_preiods' is not defined
